@@ -1,0 +1,141 @@
+package my_project;
+import java.util.Scanner;
+
+class Person {
+	String firstName;
+	String lastName;
+	String gender;
+	int age;
+	double weight;
+	int[] height;
+	String ethnicGroup;
+	String religion;
+	
+	public static Person createPerson() {
+		Person person = new Person();
+		
+		person.firstName = MyClass.promptString("What is your person's first name?");
+		person.lastName = MyClass.promptString("What is your person's last name?");
+		person.gender = MyClass.promptString("What is your person's gender?");
+		
+		person.age = MyClass.promptInt("What is your person's age?");
+		while (person.age < 1) {
+			System.out.println("Error: Age must be positive. Please enter a number that is greater than 0.");
+			
+			person.age = MyClass.promptInt("What is your person's age?");
+			
+		}
+		
+		person.weight = MyClass.promptDouble("What is your person's weight (in pounds)?");
+		while (person.weight < 1) {
+			System.out.println("Error: Weight must be positive. Please enter a number that is greater than 0.");
+			
+			person.weight = MyClass.promptInt("What is your person's weight (in pounds)?");
+			
+		}
+		
+		person.height = MyClass.getHeight("What is your person's height (in feet/inches, formatted as X'Y\")?");
+		
+		while (true) {
+			if (person.height[0] < 1) {
+				System.out.println("Error: Height must be positive. Please enter a number that is greater than 0.");
+			} else if (person.height[1] > 12) {
+				System.out.println("Error: Inches must be less than 12.");
+			} else {
+				break;
+			}
+
+			person.height = MyClass.getHeight("What is your person's height (in feet/inches, formatted as X'Y\")?");
+		}
+		
+		person.ethnicGroup = MyClass.promptString("What is your person's ethnic group?");
+		person.religion = MyClass.promptString("What is your person's religious affiliation?");
+		
+		return person;
+	}
+	
+}
+
+class MyClass {
+	static Scanner userinput = new Scanner(System.in);
+	public static void main (String[] args){  
+		System.out.println("You will provide some information about a person, real or hypothetical.");
+		System.out.println("");
+		
+		Person userPerson = Person.createPerson();
+		
+		System.out.println("");
+		
+		System.out.format("First name: %s\n", userPerson.firstName);
+		System.out.format("Last name: %s\n", userPerson.lastName);
+		System.out.format("Gender: %s\n", userPerson.gender);
+		System.out.format("Age: %d\n", userPerson.age);
+		System.out.format("Weight: %.2f\n", userPerson.weight);
+		System.out.format("Height: %d'%d\"\n", userPerson.height[0], userPerson.height[1]);
+		System.out.format("Ethnic group: %s\n", userPerson.ethnicGroup);
+		System.out.format("Religion: %s\n", userPerson.religion);
+		
+	}
+	public static int[] getHeight(String message) {
+		int[] feetAndInches = new int[2];
+		while (true) {
+			try {
+				String stringHeight = promptString(message);
+				String[] heightSplit = stringHeight.replace("\"", "").split("'");
+				feetAndInches[0] = Integer.parseInt(heightSplit[0]);
+				feetAndInches[1] = Integer.parseInt(heightSplit[1]);
+				
+				return feetAndInches;
+			} catch (Exception e) {
+				System.out.println("Error: height could not be parsed. Please enter a height using this format: 5'10\".");
+			}
+		}
+
+	}
+    //helper functions since my user input format is so consistent
+    public static String promptString(String message) {
+    	System.out.format("%s \n>>", message);
+    	return userinput.nextLine();
+    }
+    public static int promptInt(String message) {
+    	int input = 0;
+    	String errorMsg = "Error: That is not an integer. Please enter a valid number with no decimal component.";
+    	
+    	while (true) {
+    		try {
+		    	System.out.format("%s \n>>", message);
+		    	input = userinput.nextInt();
+		    	
+		    	userinput.nextLine();
+		    	return input;
+    		} catch (Exception e2) { 
+		    	System.out.println(errorMsg);
+		    	System.out.println("");
+		    	
+		    	userinput.nextLine();
+    		}
+    	}
+
+    }
+    public static double promptDouble(String message) {
+    	double input = 0;
+    	String errorMsg = "Error: That is not a number. Please enter a valid number with or without decimal component.";
+    	
+    	while (true) {
+    		try {
+		    	System.out.format("%s \n>>", message);
+		    	input = userinput.nextDouble();
+		    	
+		    	userinput.nextLine();
+		    	return input;
+    		} catch (Exception e2) { 
+		    	System.out.println(errorMsg);
+		    	System.out.println("");
+		    	
+		    	userinput.nextLine();
+		    	continue;
+    		}
+    	}
+
+    }
+}

@@ -1,0 +1,27 @@
+You will provide some information about a person, real or hypothetical.
+
+What is your person's first name? 
+>>John
+What is your person's last name? 
+>>Smith
+What is your person's gender? 
+>>Male
+What is your person's age? 
+>>25
+What is your person's weight (in pounds)? 
+>>200
+What is your person's height (in feet/inches, formatted as X'Y")? 
+>>5'10"
+What is your person's ethnic group? 
+>>European
+What is your person's religious affiliation? 
+>>Protestant
+
+First name: John
+Last name: Smith
+Gender: Male
+Age: 25
+Weight: 200.00
+Height: 5'10"
+Ethnic group: European
+Religion: Protestant
